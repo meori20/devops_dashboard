@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import Login from "./Components/Login";
+import MainScreen from "./Components/MainScreen";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Devops Dashboard Demo</h1>
-        </header>
-        <p className="App-intro">
-          in this demo we will show how our backend handles with jenkins and updates the information to react app
-        </p>
+      <div style={styles.app} className="App">
+          <MainScreen/>
       </div>
     );
   }
 }
+
+let styles = {
+  app: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1,
+      height: 600
+
+  }
+};
 
 export default App;
