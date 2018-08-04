@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import PipelineElement from "./PipelineElement";
+import '../css/Pipeline.css'
+
 class Pipeline extends Component {
     constructor(props) {
         super(props);
@@ -7,7 +10,15 @@ class Pipeline extends Component {
 
     render() {
         return (
-            <div>this is the Pipeline component</div>
+            <div className='pipeline-container'>
+                <div className='pipeline-list'>
+                    <PipelineElement/>
+                    <PipelineElement/>
+                    <PipelineElement/>
+                    <PipelineElement/>
+                    <PipelineElement/>
+                </div>
+            </div>
         );
     }
 }

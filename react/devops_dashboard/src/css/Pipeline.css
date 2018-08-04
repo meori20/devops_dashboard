@@ -1,0 +1,9 @@
+.pipeline-container{
+    width:100%;
+}
+
+.pipeline-list{
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-start;
+}
