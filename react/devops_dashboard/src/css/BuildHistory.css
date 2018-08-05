@@ -21,13 +21,3 @@
     align-items: center;
     flex-direction: column;
 }
-.build-number-container{
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    background-color: #c80000;
-}
-
-.build-number-text{
-    padding-right: 4px;
-}

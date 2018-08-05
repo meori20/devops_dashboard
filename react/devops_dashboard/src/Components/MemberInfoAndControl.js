@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '../css/MemberInfoAndControl.css'
 
 class MemberInfoAndControl extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'Mai Zuli',
-            jobTitle: 'Developer'
+            name: this.props.name,
+            jobTitle: this.props.jobTitle
         }
     }
 
@@ -34,6 +35,11 @@ class MemberInfoAndControl extends Component {
             </div>
         );
     }
+}
+
+MemberInfoAndControl.propTypes = {
+    name: PropTypes.string,
+    jobTitle: PropTypes.string
 }
 
 export default MemberInfoAndControl;

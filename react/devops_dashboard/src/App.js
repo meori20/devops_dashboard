@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div style={styles.app} className="App">
-          <MainScreen/>
+          <MainScreen user={{name:'Man Makoner', jobTitle: 'Developer'}}/>
       </div>
     );
   }
