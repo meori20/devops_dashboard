@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
-
 import './App.css';
-import Login from "./Components/Login";
 import MainScreen from "./Components/MainScreen";
+import Login from "./Components/Login";
+
 
 class App extends Component {
-  render() {
-    return (
-      <div style={styles.app} className="App">
-          <MainScreen user={{name:'Man Makoner', jobTitle: 'Developer'}}/>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            mainScreen: false
+        }
+    }
+
+    async toMainScreen(value, user){
+        await this.setState({
+            mainScreen: value,
+            user: user,
+
+        })
+    };
+
+    render() {
+        return (
+            <div style={styles.app}>
+                {this.state.mainScreen ? <MainScreen user={this.state.user}/> : <Login callback={this.toMainScreen.bind(this)}/>}
+            </div>
+        );
+    }
 }
+
+
 
 let styles = {
   app: {
