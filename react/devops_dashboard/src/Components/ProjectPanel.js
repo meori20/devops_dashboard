@@ -4,6 +4,14 @@ import '../css/ProjectPanel.css'
 class ProjectPanel extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            projectList: props.projectList,
+            callback: props.callback
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({projectList: nextProps.projectList})
     }
 
     render() {
@@ -11,10 +19,8 @@ class ProjectPanel extends Component {
                 <div className='project-panel-container'>
                     <div className='project-tools-container'>
                         <div className='project-list-container'>
-                            <select>
-                                <option>225</option>
-                                <option>224</option>
-                                <option>223</option>
+                            <select onChange={this.change}>
+                                {this.getOptions()}
                             </select>
                         </div>
                         <div className='project-searchBar-container'>
@@ -29,6 +35,19 @@ class ProjectPanel extends Component {
                 </div>
         );
     }
+
+    change = (event) => {
+        this.state.callback(event.target.value)
+    };
+
+    getOptions= () => {
+        if(this.state.projectList){
+            return Object.keys(this.state.projectList).map(value => {
+                return <option>{value}</option>
+            })
+        }
+    };
+
 }
 
 export default ProjectPanel;

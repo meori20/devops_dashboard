@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../css/Login.css";
 import img from "../images/devops.png"
-import MainScreen from "./MainScreen";
+import ApplicationManager from "../Managers/ApplicationManager/ApplicationManager"
 
 
 class Login extends Component {
@@ -29,7 +29,7 @@ class Login extends Component {
     handleSubmit = event => {
         if(this.validateForm()){
             console.log('we are in event');
-            this.props.history.push(MainScreen)
+            this.props.callback(true,{name: this.state.email, jobTitle: 'Developer'});
         }
     };
 

@@ -6,9 +6,10 @@ class BuildHistoryElement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buildNumber: this.props.buildNumber,
-            buildNumberText: this.props.buildNumberText ? this.props.buildNumberText : 'Build: #',
-            className: this.props.isSuccess ? 'build-number-success-container' : 'build-number-failed-container'
+            projectName: props.projectName,
+            buildNumber: props.buildNumber,
+            buildNumberText: props.buildNumberText ? this.props.buildNumberText : 'Build: #',
+            className: props.isSuccess ? 'build-number-success-container' : 'build-number-failed-container'
         }
     }
 

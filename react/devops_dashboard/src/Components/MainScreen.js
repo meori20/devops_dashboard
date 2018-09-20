@@ -7,15 +7,42 @@ import MemberInfoAndControl from "./MemberInfoAndControl";
 import Tabs from "./Tabs";
 import BuildHistory from "./BuildHistory";
 import ProjectPanel from "./ProjectPanel";
-import data from "../Mock/mockJenkinsResponse"
+import {applicationManager} from "../Managers/ApplicationManager/ApplicationManager";
 
 class MainScreen extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props.user)
         this.state = {
             user: this.props.user,
-        }
+            buildHistory: []
+        };
+        // this.evtSource = new EventSource(applicationManager.preferencesManager.getStreamURL());
+
+        // this.evtSource.onmessage = (e) => {
+        //     console.log(e);
+        // }
     }
+
+    componentDidMount(){
+        applicationManager.MainScreenClient.get().then(response=>{
+            this.setState({
+                projectList: response.projectList,
+            });
+        }).catch(error => {
+            console.log('this is failing because: ' + error)
+        });
+        console.log('mounetd');
+
+
+    }
+
+    displayBuildHistory = (projectName) => {
+        this.setState({
+            projectName: projectName,
+            buildHistory: this.state.projectList[projectName].buildList
+        })
+    };
 
 
     render() {
@@ -26,9 +53,9 @@ class MainScreen extends Component {
                         <MemberInfoAndControl name={this.state.user.name} jobTitle={this.state.user.jobTitle}/>
                         <Tabs/>
                         <div className='main-panel-container'>
-                            <BuildHistory buildHistoryList={data.builds}/>
+                            <BuildHistory buildHistoryList={this.state.buildHistory} projectName={this.state.projectName}/>
                             <div className='project-panel-container'>
-                                <ProjectPanel/>
+                                <ProjectPanel projectList={this.state.projectList} callback={this.displayBuildHistory}/>
                                 <div className='all-statistic-container'>
                                     <Pipeline/>
                                     <Statistics/>
