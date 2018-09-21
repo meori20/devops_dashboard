@@ -15,12 +15,10 @@ class Login extends Component {
     }
 
     validateForm() {
-        console.log('validating');
         return this.state.email.length > 0 && this.state.password.length > 0;
     }
 
     handleChange = event => {
-        console.log(`handeling change for : ${event.target.id + event.target.value}`)
         this.setState({
             [event.target.id]: event.target.value
         });
@@ -28,7 +26,6 @@ class Login extends Component {
 
     handleSubmit = event => {
         if(this.validateForm()){
-            console.log('we are in event');
             this.props.callback(true,{name: this.state.email, jobTitle: 'Developer'});
         }
     };

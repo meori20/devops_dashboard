@@ -21,9 +21,11 @@ class App extends Component {
     };
 
     render() {
+        let user = {name: 'Srulik',jobTitle: 'Likes pop music'};
         return (
             <div style={styles.app}>
-                {this.state.mainScreen ? <MainScreen user={this.state.user}/> : <Login callback={this.toMainScreen.bind(this)}/>}
+                {/*{this.state.mainScreen ? <MainScreen user={this.state.user}/> : <Login callback={this.toMainScreen.bind(this)}/>}*/}
+                <MainScreen user={user}/>
             </div>
         );
     }
