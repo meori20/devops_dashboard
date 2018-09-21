@@ -1,5 +1,5 @@
 export default class HttpClient {
-    constructor(responseTimeout, url, headers){
+    constructor(responseTimeout, url, authorizationString,headers){
         this.COOKIES_SET_HEADER = "Set-Cookie";
         this.COOKIES_HEADER = "Cookie";
         this.CONTENT_TYPE_HEADER = "Content-Type";
@@ -13,8 +13,10 @@ export default class HttpClient {
         this._responseTimeout = responseTimeout;
 
         this._headers = headers;
-        this._headers.append(this.AUTHORIZATION, this._authorizationString);
+        if(authorizationString){
+            // this._headers[this.AUTHORIZATION] = authorizationString;        this._headers['Access-Control-Allow-Origin'] = '*';
 
+        }
         this.postMethod = {
             method: this.POST_HEADER,
         };
@@ -33,6 +35,10 @@ export default class HttpClient {
         return this;
     }
 
+    resetURL(){
+        this._urlWithParams = this._url;
+    }
+
     addParams(params){
         let esc = encodeURIComponent;
         if((typeof params === typeof {}) && (!Array.isArray(params))){
@@ -46,8 +52,6 @@ export default class HttpClient {
     }
 
     post(data) {
-        if(!this._headers.has(this.CONTENT_TYPE_HEADER))
-            this._headers.append(this.CONTENT_TYPE_HEADER, 'application/json');
         this.postMethod.body = JSON.stringify(data);
         this.postMethod.headers = this._headers;
         return this.fetchContent(this.postMethod);
@@ -60,7 +64,7 @@ export default class HttpClient {
     }
 
     async fetchContent(method){
-        let response = await fetch(this._urlWithParams, {method: 'GET'});
+        let response = await fetch(this._urlWithParams, method);
         response = await response.json();
         return response;
     };

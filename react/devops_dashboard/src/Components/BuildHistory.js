@@ -22,7 +22,6 @@ class BuildHistory extends Component {
 
     renderBuildHistoryList(buildHistoryElement, index){
         let temp = <BuildHistoryElement isSuccess={buildHistoryElement.buildStatus === BuildStatus.success} buildNumber={buildHistoryElement.buildNumber} key={`${this.state.projectName}.${buildHistoryElement.buildNumber}`}/>;
-        console.log(temp);
         return temp
     }
 

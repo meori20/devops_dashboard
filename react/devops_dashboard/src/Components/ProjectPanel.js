@@ -43,7 +43,7 @@ class ProjectPanel extends Component {
     getOptions= () => {
         if(this.state.projectList){
             return Object.keys(this.state.projectList).map(value => {
-                return <option>{value}</option>
+                return <option key={value}>{value}</option>
             })
         }
     };
