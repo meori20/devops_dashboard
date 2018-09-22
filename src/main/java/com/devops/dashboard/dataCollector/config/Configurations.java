@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.devops.dashboard.dataCollector.Constants.ServicesConstants;
 import com.devops.dashboard.dataCollector.dataModels.implementation.Configurations.ConfigurationsDM;
 import com.devops.dashboard.dataCollector.dataModels.implementation.Configurations.Microservices;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -18,7 +19,7 @@ public class Configurations {
 	private ConfigurationsDM confDM;
 
 	private Configurations() throws JsonParseException, JsonMappingException, IOException {
-		File f = new File("src\\main\\java\\com\\devops\\dashboard\\dataCollector\\config\\configurations.json");
+		File f = new File(ServicesConstants.CONFIGURATION__FILE_PATH);
 		if (!f.exists()) {
 		    throw new FileNotFoundException("Failed to find file: " + 
 		        f.getAbsolutePath());
@@ -34,6 +35,18 @@ public class Configurations {
 
 		return conf;
 
+	}
+	
+	public void updateConfigurations(ConfigurationsDM config) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			mapper.writeValue(new File(ServicesConstants.CONFIGURATION__FILE_PATH), config);
+			confDM = config;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public String getJenkinsURL() {
