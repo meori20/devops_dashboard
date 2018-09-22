@@ -11,6 +11,7 @@ import com.devops.dashboard.dataCollector.dataModels.interfaces.IBuildDM;
 import com.devops.dashboard.dataCollector.dataModels.interfaces.IProjectDM;
 import com.devops.dashboard.dataCollector.mappers.interfaces.IMapBuildToBuildsDM;
 import com.devops.dashboard.dataCollector.mappers.interfaces.IMapJobToIProjectDM;
+import com.devops.dashboard.dataCollector.services.interfaces.ISonarService;
 import com.offbytwo.jenkins.model.Build;
 import com.offbytwo.jenkins.model.Job;
 
@@ -18,6 +19,9 @@ public class MapJobToIProjectDM implements IMapJobToIProjectDM{
 	
 	@Autowired
 	private IMapBuildToBuildsDM mapBuildToBuildsDM;
+	
+	@Autowired
+	private ISonarService sonarService;
 	
 	@Override
 	public IProjectDM map(Job job) throws IOException {
@@ -35,6 +39,7 @@ public class MapJobToIProjectDM implements IMapJobToIProjectDM{
 		
 		projectDM.setBuildList(mappedBuilds);
 		projectDM.setProjectName(job.getName());
+		projectDM.setSonarQube(sonarService.getSonarQube(job.getName()));
 		
 		return projectDM;
 		

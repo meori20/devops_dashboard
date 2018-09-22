@@ -4,11 +4,13 @@ import java.util.List;
 
 import com.devops.dashboard.dataCollector.dataModels.interfaces.IBuildDM;
 import com.devops.dashboard.dataCollector.dataModels.interfaces.IProjectDM;
+import com.devops.dashboard.dataCollector.dataModels.interfaces.ISonarQube;
 
 public class ProjectDM implements IProjectDM {
 
 	private List<IBuildDM> buildList;
 	private String projectName;
+	private ISonarQube sonarQube;
 	
 	@Override
 	public List<IBuildDM> getBuildList() {
@@ -29,6 +31,18 @@ public class ProjectDM implements IProjectDM {
 	public void setProjectName(String projName) {
 		this.projectName = projName;
 	}
+	
+	@Override
+	public ISonarQube getSonarQube() {
+		return this.sonarQube;
+	}
+	
+	@Override
+	public void setSonarQube(ISonarQube sq) {
+		this.sonarQube = sq;
+	}
+	
+	
 
 
 }

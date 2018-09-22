@@ -51,23 +51,6 @@ public class newBuildEvents {
 		response.setHeader("Access-Control-Allow-Origin", "null");
 		response.setHeader("Access-Control-Expose-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
-//		ExecutorService service = Executors.newSingleThreadExecutor();
-//        service.execute(() -> {
-//            for (int i = 0; i < 5; i++) {
-//                try {
-//                    emitter.send(LocalTime.now().toString() , MediaType.TEXT_PLAIN);
-//
-//                    Thread.sleep(200);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    emitter.completeWithError(e);
-//                    return;
-//                }
-//            }
-//            emitter.complete();
-//        });
-		
-		
 		
 		return emitter;
 		

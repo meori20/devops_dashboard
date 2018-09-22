@@ -9,5 +9,7 @@ public interface IProjectDM {
 	
 	void setBuildList(List<IBuildDM> buildList);
 	void setProjectName(String projName);
+	ISonarQube getSonarQube();
+	void setSonarQube(ISonarQube sq);
 
 }
