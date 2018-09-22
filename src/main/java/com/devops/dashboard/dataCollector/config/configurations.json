@@ -1,0 +1,17 @@
+{
+	"configuration": {
+		"jenkinsServer": {
+			"userName": "meori20",
+			"password": "zqxwce321",
+			"jenkinsUrl": "http://ec2-52-36-106-204.us-west-2.compute.amazonaws.com:8080",
+			"microservices": {
+				"microservice": [
+					{
+						"name": "DevDashboard",
+						"sonarKey": "meori20_dashboardTests"
+					}
+				]
+			}
+		}
+	}
+}
