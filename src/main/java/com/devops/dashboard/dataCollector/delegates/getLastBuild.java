@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.nio.channels.NoConnectionPendingException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,12 @@ public class getLastBuild {
 	
 	
 	@RequestMapping(value = "/getLastBuild/{jobName}", method = RequestMethod.GET)
-	public @ResponseBody String testMethod(@PathVariable(value="jobName") String jobName) throws IOException {
+	public @ResponseBody String testMethod(@PathVariable(value="jobName") String jobName, HttpServletResponse response) throws IOException {
+		
+		response.setHeader("Access-Control-Allow-Origin", "null");
+		response.setHeader("Access-Control-Expose-Headers", "*");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		
 		testDM.PrintHello();
 		JenkinsServer jenkinsServer = null;
 		try {

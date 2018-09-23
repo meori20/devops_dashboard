@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +25,11 @@ public class getInitialScreen {
 	private IMapJenkinsServerToDashboadDM mapJenkinsServerToDashboadDM;
 	
 	@RequestMapping(value = "/getInitialScreen", method = RequestMethod.GET)
-	public @ResponseBody IDashBoardDM getDashboard() throws IOException {
+	public @ResponseBody IDashBoardDM getDashboard(HttpServletResponse response) throws IOException {
+		response.setHeader("Access-Control-Allow-Origin", "null");
+		response.setHeader("Access-Control-Expose-Headers", "*");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		
 		JenkinsServer jenkinsServer = null;
 		Configurations conf = Configurations.getConfigurations();
 		try {
