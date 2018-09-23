@@ -1,4 +1,5 @@
 .build-number-failed-container{
+    padding: 5px;
     margin-top: 10px;
     display: flex;
     justify-content: center;
@@ -6,6 +7,7 @@
 }
 
 .build-number-success-container{
+    padding: 5px;
     margin-top: 10px;
     display: flex;
     justify-content: center;

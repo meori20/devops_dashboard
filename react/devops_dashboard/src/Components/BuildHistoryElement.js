@@ -8,6 +8,7 @@ class BuildHistoryElement extends Component {
         this.state = {
             projectName: props.projectName,
             buildNumber: props.buildNumber,
+            callback: props.callback,
             buildNumberText: props.buildNumberText ? this.props.buildNumberText : 'Build: #',
             className: props.isSuccess ? 'build-number-success-container' : 'build-number-failed-container'
         }
@@ -15,7 +16,7 @@ class BuildHistoryElement extends Component {
 
     render() {
         return (
-            <div className={this.state.className}>
+            <div className={this.state.className} onClick={()=>{this.state.callback(this.state.buildNumber)}}>
                 <div className='build-number-text'>{this.state.buildNumberText}</div>
                 <div className='build-number'>{this.state.buildNumber}</div>
             </div>

@@ -37,6 +37,11 @@ public class Configurations {
 
 	}
 	
+	public ConfigurationsDM getConfigurationsToClient() throws JsonParseException, JsonMappingException, IOException {
+		return conf.confDM;
+
+	}
+	
 	public void updateConfigurations(ConfigurationsDM config) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {

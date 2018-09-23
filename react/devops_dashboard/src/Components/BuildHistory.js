@@ -21,13 +21,18 @@ class BuildHistory extends Component {
     }
 
     renderBuildHistoryList(buildHistoryElement, index){
-        let temp = <BuildHistoryElement isSuccess={buildHistoryElement.buildStatus === BuildStatus.success} buildNumber={buildHistoryElement.buildNumber} key={`${this.state.projectName}.${buildHistoryElement.buildNumber}`}/>;
+        let temp = <BuildHistoryElement
+            isSuccess={buildHistoryElement.buildStatus === BuildStatus.success}
+            buildNumber={buildHistoryElement.buildNumber}
+            key={`${this.state.projectName}.${buildHistoryElement.buildNumber}`}
+            callback={this.props.callback}
+        />;
         return temp
     }
 
     getHistoryList(){
         if(this.state.buildHistoryList){
-            return this.state.buildHistoryList.map((buildElement, index) => {
+            return this.state.buildHistoryList.slice(0,10).map((buildElement, index) => {
                 return this.renderBuildHistoryList(buildElement, index);
             })
         }

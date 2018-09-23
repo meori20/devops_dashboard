@@ -48,7 +48,7 @@ public class newBuildEvents {
 	public ResponseBodyEmitter newBuildSubscribe(HttpServletResponse response) throws IOException {
 		
 		emitter = new SseEmitter(1000 *60 * 1000L);
-		response.setHeader("Access-Control-Allow-Origin", "null");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Expose-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		

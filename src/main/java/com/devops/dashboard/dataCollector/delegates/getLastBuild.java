@@ -35,7 +35,7 @@ public class getLastBuild {
 	@RequestMapping(value = "/getLastBuild/{jobName}", method = RequestMethod.GET)
 	public @ResponseBody String testMethod(@PathVariable(value="jobName") String jobName, HttpServletResponse response) throws IOException {
 		
-		response.setHeader("Access-Control-Allow-Origin", "null");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Expose-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		

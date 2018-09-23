@@ -13,15 +13,21 @@ export default class HttpClient {
         this._responseTimeout = responseTimeout;
 
         this._headers = headers;
+        // this._headers.append('Access-Control-Allow-Origin', '*');
+
         if(authorizationString){
-            // this._headers[this.AUTHORIZATION] = authorizationString;        this._headers['Access-Control-Allow-Origin'] = '*';
+            // this._headers[this.AUTHORIZATION] = authorizationString;
+            // this._headers['Access-Control-Expose-Headers'] = this.CONTENT_TYPE_HEADER;
 
         }
         this.postMethod = {
             method: this.POST_HEADER,
+            // mode: 'no-cors'
         };
         this.getMethod = {
             method: this.GET_HEADER,
+            // mode: 'no-cors'
+
         };
     }
 
@@ -52,13 +58,15 @@ export default class HttpClient {
     }
 
     post(data) {
+        this._headers.append(this.CONTENT_TYPE_HEADER,'application/json');
+        this._headers.append("Accept",'application/json');
         this.postMethod.body = JSON.stringify(data);
         this.postMethod.headers = this._headers;
         return this.fetchContent(this.postMethod);
     }
 
 
-    get() {
+    get(noCors) {
         this.getMethod.headers = this._headers;
         return this.fetchContent(this.getMethod);
     }
