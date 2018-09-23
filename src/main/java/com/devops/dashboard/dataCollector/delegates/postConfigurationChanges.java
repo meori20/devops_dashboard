@@ -17,7 +17,7 @@ public class postConfigurationChanges {
 	
 	@RequestMapping(value = "/updateConfigurations", method= RequestMethod.POST , consumes= {"application/json"} , produces = {"application/json"})
 	ConfigurationsDM updateConfigurations(@RequestBody ConfigurationsDM config, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "null");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Expose-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
