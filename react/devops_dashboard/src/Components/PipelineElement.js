@@ -11,7 +11,7 @@ class PipelineElement extends Component {
         }
     }
     componentWillReceiveProps(props){
-        console.log('getting props' + props)
+        console.log('getting props' + JSON.stringify(props));
         this.setState({
             name: this.props.name,
             status: this.props.status,

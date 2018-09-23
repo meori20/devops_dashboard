@@ -9,7 +9,7 @@ class Pipeline extends Component {
         super(props);
         this.state = {
             stages: props.stages,
-            ableToLoadPipeLine: props.ableToLoadPipeLine
+            ableToLoadPipeline: props.ableToLoadPipeline
         }
     }
 
@@ -18,9 +18,10 @@ class Pipeline extends Component {
     }
 
     componentWillReceiveProps(props){
+        // console.log('getting props' + JSON.stringify(props));
         this.setState({
             stages: props.stages,
-            ableToLoadPipeLine: props.ableToLoadPipeLine
+            ableToLoadPipeline: props.ableToLoadPipeline
         })
     }
 
@@ -31,18 +32,20 @@ class Pipeline extends Component {
 
 
     getPipelineElements(){
-        if(this.state.stages){
+        if(this.state.ableToLoadPipeline){
             return this.state.stages.map((element, index) => {
                 return this.renderPipelineElement(element, index);
             })
+        }else{
+            return <div/>
         }
     }
 
     render() {
         return (
             <div className='pipeline-container'>
-                <div className='pipeline-list'>
-                    {this.state.ableToLoadPipeLine ? this.getPipelineElements() : <div className='pipeline-unable-to-load'>unable to load Pipline</div>}
+                <div className={this.state.ableToLoadPipeline ? 'pipeline-list' : 'pipeline-list-unavailable'}>
+                    {this.state.ableToLoadPipeline ? this.getPipelineElements() : <div className='pipeline-unable-to-load'>unable to load Pipline</div>}
                 </div>
             </div>
         );

@@ -12,8 +12,8 @@ class ApplicationManager {
         if (!global.instance) {
             this.preferencesManager = new PreferencesManager(new Environment());
             this.authorizationString = "Basic " + String(atob(this.preferencesManager.getAuthorization()));
-            this.MainScreenClient = new HttpClient(5000, this.preferencesManager.getSubscribeBuildURL(),null, {});
-            this.LastBuildClient = new HttpClient(5000, this.preferencesManager.getLastBuildURL(),this.authorizationString, {});
+            this.MainScreenClient = new HttpClient(5000, this.preferencesManager.getSubscribeBuildURL(),null, new Headers());
+            this.LastBuildClient = new HttpClient(5000, this.preferencesManager.getLastBuildURL(),this.authorizationString, new Headers());
             this.sessionManager = new SessionManager();
             this.addFormatFunctionToStringPrototype();
             global.instance = this;
