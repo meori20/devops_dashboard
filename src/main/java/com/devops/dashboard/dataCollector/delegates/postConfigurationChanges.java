@@ -19,10 +19,7 @@ public class postConfigurationChanges {
 	@CrossOrigin(origins="*", allowedHeaders="content-type", exposedHeaders="content-type", allowCredentials="true")
 	@RequestMapping(value = "/updateConfigurations", method= RequestMethod.POST , consumes= {"application/json"} , produces = {"application/json"})
 	ConfigurationsDM updateConfigurations(@RequestBody ConfigurationsDM config, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Expose-Headers", "content-type");
-		response.setHeader("Access-Control-Allow-Headers", "content-type");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
+		delegatesUtil.enableAccessControlForPostReq(response);
 		ConfigurationsDM configToReturn = null;
 		try {
 			Configurations.getConfigurations().updateConfigurations(config);

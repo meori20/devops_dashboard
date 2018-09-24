@@ -34,10 +34,7 @@ public class getLastBuild {
 	
 	@RequestMapping(value = "/getLastBuild/{jobName}", method = RequestMethod.GET)
 	public @ResponseBody String testMethod(@PathVariable(value="jobName") String jobName, HttpServletResponse response) throws IOException {
-		
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Expose-Headers", "*");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
+		delegatesUtil.enableAccessControlForGetReq(response);
 		
 		testDM.PrintHello();
 		JenkinsServer jenkinsServer = null;
@@ -55,8 +52,16 @@ public class getLastBuild {
 		BuildWithDetails lastBuild = dasbhoradJob.getLastBuild().details();
 		
 		
+		if(lastBuild != null) {
+			if(lastBuild.getResult() != null) {
+				return "Build number " + lastBuild.getNumber() + " result is " + lastBuild.getResult().name();
+			}
+			else {
+				return "Build number " + lastBuild.getNumber();
+			}
+		}
+		return "";
 		
-		return "Build number " + lastBuild.getNumber() + " result is " + lastBuild.getResult().name();
 		
 		
 		

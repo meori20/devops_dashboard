@@ -26,9 +26,7 @@ public class getInitialScreen {
 	
 	@RequestMapping(value = "/getInitialScreen", method = RequestMethod.GET)
 	public @ResponseBody IDashBoardDM getDashboard(HttpServletResponse response) throws IOException {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Expose-Headers", "*");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
+		delegatesUtil.enableAccessControlForGetReq(response);
 		
 		JenkinsServer jenkinsServer = null;
 		Configurations conf = Configurations.getConfigurations();
