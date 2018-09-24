@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/PipelineElement.css'
+import {BuildStatus} from "../Utils/AppEnums";
 
 class PipelineElement extends Component {
     constructor(props) {
@@ -7,25 +8,36 @@ class PipelineElement extends Component {
         this.state = {
             name: props.name,
             status: props.status,
-            duration: props.duration
+            duration: props.duration,
+            reload: false,
         }
     }
-    componentWillReceiveProps(props){
-        console.log('getting props' + props)
-        this.setState({
-            name: this.props.name,
-            status: this.props.status,
-            duration: this.props.duration
+    async componentWillReceiveProps(props){
+        await this.setState(state =>{
+            return {
+                name: this.props.name,
+                    status: this.props.status,
+                duration: this.props.duration,
+                reload: !state.reload,
+            }
         })
     }
 
     componentDidMount(){
-        console.log('component did mount with props: ' + this.props);
         this.setState({
             name: this.props.name,
             status: this.props.status,
             duration: this.props.duration
         })
+    }
+    getPipelineElementStyole(status){
+        if(status === BuildStatus.success){
+            return 'pipeline-element-status-success-container';
+        }else if(status === BuildStatus.inProgress){
+            return 'pipeline-element-status-in-progress-container';
+        }else{
+            return 'pipeline-element-status-failed-container';
+        }
     }
 
     render() {
@@ -35,7 +47,7 @@ class PipelineElement extends Component {
                     <header className='pipeline-element-header'>{this.state.name}</header>
                 </div>
                 <div className='pipeline-element-time'>{this.state.duration}</div>
-                <div className='pipeline-element-status-success-container'>
+                <div className={this.getPipelineElementStyole(this.state.status)}>
                     <div className='pipeline-element-status'>
                         {this.state.status}
                     </div>

@@ -1,3 +1,8 @@
 .statistics-container{
     display: flex;
 }
+
+.statistics-element-body-text{
+    color: white;
+    size: 14px;
+}
