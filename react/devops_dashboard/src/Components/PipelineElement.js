@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/PipelineElement.css'
 import {BuildStatus} from "../Utils/AppEnums";
+import Popup from './Popup';
 
 class PipelineElement extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class PipelineElement extends Component {
             status: props.status,
             duration: props.duration,
             reload: false,
+            errorText: props.errorText
         }
     }
     async componentWillReceiveProps(props){
@@ -40,6 +42,10 @@ class PipelineElement extends Component {
         }
     }
 
+    getErrorText(){
+        return <header className='text-for-popup'>{this.state.errorText}</header>;
+    }
+
     render() {
         return (
             <div className='pipeline-element-container'>
@@ -51,11 +57,8 @@ class PipelineElement extends Component {
                     <div className='pipeline-element-status'>
                         {this.state.status}
                     </div>
-                    <div className='pipeline-element-avg-time'>
-                        2s
-                    </div>
                     <div className='pipeline-element-logs-ref'>
-                        click for logs
+                        {this.state.status === BuildStatus.failed && Popup(this.getErrorText())}
                     </div>
                 </div>
 

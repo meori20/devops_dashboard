@@ -19,7 +19,7 @@ class Statistics extends Component {
     getSonarText(){
         if(this.state.sonarQube){
             return (
-                <div>
+                <div className={'statistics-element-body-contain'}>
                     <div className='statistics-element-body-text'>
                         {`Code Coverage: ${this.state.sonarQube.m_CodeCoverage}`}
                     </div>
@@ -27,8 +27,7 @@ class Statistics extends Component {
                         {`Code Smells: ${this.state.sonarQube.m_CodeSmells}`}
                     </div>
                     <div className='statistics-element-body-text'>
-                        {`For More Details:`}
-                        <div style={{cursor: 'pointer'}}>{this.state.sonarQube.m_SonarRefURL}</div>
+                        {this.getLink()}
                     </div>
                 </div>
             )
@@ -36,6 +35,11 @@ class Statistics extends Component {
         }
 
     }
+    getLink(){
+        let link = <a className='statistics-element-body-text' href={this.state.sonarQube.m_SonarRefURL}>click here</a>;
+        return <div>For More Details: {link}</div>;
+    }
+
 
     render() {
         return (

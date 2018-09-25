@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MainScreen from "./Components/MainScreen";
+
 import Login from "./Components/Login";
 
 
@@ -22,6 +23,7 @@ class App extends Component {
 
     render() {
         let user = {name: 'Srulik',jobTitle: 'Likes pop music'};
+
         return (
             <div style={styles.app}>
                 {/*{this.state.mainScreen ? <MainScreen user={this.state.user}/> : <Login callback={this.toMainScreen.bind(this)}/>}*/}

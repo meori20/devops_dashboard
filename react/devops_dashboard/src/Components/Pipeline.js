@@ -18,6 +18,7 @@ class Pipeline extends Component {
             name={element.name}
             status={element.status}
             duration={element.durationMillis}
+            errorText={element.error ? `${element.error.type} ${element.error.massage}` : ''}
             key={`${element.name}.${this.state.buildID}`}/>;
     }
 

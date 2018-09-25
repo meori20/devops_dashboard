@@ -23,6 +23,7 @@ class MainScreen extends Component {
         this.firstReload = true;
         this.evtSource = new EventSource(applicationManager.preferencesManager.getStreamURL());
         this.evtSource.onmessage = (e) => {
+            console.log(e);
             let data = e.data;
             let projectName = data.split(';')[0].split('/')[2];
             if(projectName){
@@ -35,6 +36,9 @@ class MainScreen extends Component {
         };
 
     }
+
+
+
 
 
     async componentDidMount(){
