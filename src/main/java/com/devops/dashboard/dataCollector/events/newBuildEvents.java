@@ -49,7 +49,7 @@ public class newBuildEvents {
 			System.out.println(e.getDescription());
 			int indexOf = e.getShortDescription().substring(ServicesConstants.LENGHT_OF_GETLASTBUILD_STRING).indexOf(']');
 			String jobName = e.getDescription().substring(ServicesConstants.LENGHT_OF_GETLASTBUILD_STRING +1 , ServicesConstants.LENGHT_OF_GETLASTBUILD_STRING + indexOf);
-			if(!jobName.isEmpty() && jobName.length() > 1) {
+			if(!jobName.isEmpty() && jobName.length() > 1 && !jobName.equals("een")) {
 				sendPipeLineData(emitter , jobName);
 			}
 			else if(emitter != null ) {
