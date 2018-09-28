@@ -26,51 +26,57 @@ import com.devops.dashboard.dataCollector.dataModels.implementation.Sonar.SonarR
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-
 @Controller
 public class newBuildEvents {
-	
-	
+
 	private SseEmitter emitter;
-	
-	
+
 	@Component
 	public class eventHandler {
-		
+
 		@Async
 		@EventListener
-		public void handleEvent (RequestHandledEvent e) throws IOException {
-			
+		public void handleEvent(RequestHandledEvent e) throws IOException {
+
+			String jobName = null;
 			System.out.println(e.getDescription());
 			System.out.println(e.getSource());
 			System.out.println(e.getShortDescription());
 			System.out.println(e.toString());
 			System.out.println(e.getDescription());
-			int indexOf = e.getShortDescription().substring(ServicesConstants.LENGHT_OF_GETLASTBUILD_STRING).indexOf(']');
-			String jobName = e.getDescription().substring(ServicesConstants.LENGHT_OF_GETLASTBUILD_STRING +1 , ServicesConstants.LENGHT_OF_GETLASTBUILD_STRING + indexOf);
-			if(!jobName.isEmpty() && jobName.length() > 1) {
-				sendPipeLineData(emitter , jobName);
+			String[] splitedEventDetailString = e.getDescription().split(";");
+			String[] splitedURLString = splitedEventDetailString[0].split("[\\[\\]]");
+			if (splitedURLString.length > 1) {
+				String[] secondUrlSplit = splitedURLString[1].split("/");
+				if (secondUrlSplit.length == 3 && secondUrlSplit[1].equals("getLastBuild")) {
+					jobName = secondUrlSplit[2];
+				}
+
 			}
-			else if(emitter != null ) {
+
+			if (emitter != null & jobName != null) {
 				
+				sendPipeLineData(emitter, jobName);
+			} else if (emitter != null) {
+
 				emitter.send(e.getDescription(), MediaType.TEXT_PLAIN);
 			}
 		}
 
 		private void sendPipeLineData(SseEmitter emitter, String jobName) {
 			boolean pipeLineFinished = false;
-			
+
 			RestTemplate restTemplate = new RestTemplate();
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-			
-			while(!pipeLineFinished) {
-				ResponseEntity<String> livePipelineDetailsString = restTemplate.getForEntity("http://ec2-52-36-106-204.us-west-2.compute.amazonaws.com:8080/job/"+jobName+"/wfapi/runs",String.class);
+
+			while (!pipeLineFinished) {
+				ResponseEntity<String> livePipelineDetailsString = restTemplate.getForEntity(
+						"http://ec2-52-36-106-204.us-west-2.compute.amazonaws.com:8080/job/" + jobName + "/wfapi/runs",
+						String.class);
 				try {
 					PipelineDM[] pipeline = mapper.readValue(livePipelineDetailsString.getBody(), PipelineDM[].class);
-					if(!(pipeline[0].getStatus().equals("IN_PROGRESS")))
-					{
+					if (!(pipeline[0].getStatus().equals("IN_PROGRESS"))) {
 						pipeLineFinished = true;
 					}
 				} catch (IOException e1) {
@@ -79,31 +85,31 @@ public class newBuildEvents {
 				}
 				try {
 					Thread.sleep(1000);
-					emitter.send(livePipelineDetailsString.getBody(), MediaType.TEXT_PLAIN);
+					if (livePipelineDetailsString != null) {
+						emitter.send(livePipelineDetailsString.getBody(), MediaType.TEXT_PLAIN);
+					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
 
 	}
-	
+
 	@RequestMapping("/subscribeBuild")
-    @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 	public ResponseBodyEmitter newBuildSubscribe(HttpServletResponse response) throws IOException {
-		
-		emitter = new SseEmitter(1000 *60 * 1000L);
+
+		emitter = new SseEmitter(1000 * 60 * 1000L);
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Expose-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
-		
+
 		return emitter;
-		
-		
-		
+
 	}
 
 }
