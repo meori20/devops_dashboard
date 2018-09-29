@@ -20,7 +20,7 @@ public class getAbortBuild {
 	
 	@RequestMapping(value = "/getAbortBuild/{jobName}", method = RequestMethod.GET)
 	public @ResponseBody String getAbortBuild(@PathVariable(value="jobName") String jobName, HttpServletResponse response) throws IOException {
-		
+		delegatesUtil.enableAccessControlForGetReq(response);
 		JenkinsServer jenkinsServer = null;
 		Configurations conf = Configurations.getConfigurations();
 		try {

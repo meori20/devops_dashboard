@@ -22,7 +22,7 @@ public class getTriggerBuild {
 	
 	@RequestMapping(value = "/getTriggerBuild/{jobName}", method = RequestMethod.GET)
 	public @ResponseBody QueueReference getTriggerBuild(@PathVariable(value="jobName") String jobName, HttpServletResponse response) throws IOException {
-		
+		delegatesUtil.enableAccessControlForGetReq(response);
 		JenkinsServer jenkinsServer = null;
 		Configurations conf = Configurations.getConfigurations();
 		try {
