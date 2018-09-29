@@ -80,7 +80,13 @@ public class newBuildEvents {
 				try {
 					Thread.sleep(1000);
 					if (livePipelineDetailsString != null) {
-						emitter.send(livePipelineDetailsString.getBody(), MediaType.TEXT_PLAIN);
+						String livePipelineDetailsStringBody = livePipelineDetailsString.getBody();
+						StringBuilder responseBuilder = new StringBuilder();
+						responseBuilder.append("{ \"ProjectName:\":\""+jobName+"\",\"AllBuilds\":");
+						responseBuilder.append(livePipelineDetailsStringBody);
+						responseBuilder.append("}");
+						
+						emitter.send(responseBuilder.toString(), MediaType.TEXT_PLAIN);
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
