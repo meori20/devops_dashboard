@@ -4,12 +4,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tools.ant.taskdefs.Sleep;
-import org.elasticsearch.common.regex.Regex;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -20,9 +17,7 @@ import org.springframework.web.context.support.RequestHandledEvent;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.devops.dashboard.dataCollector.Constants.ServicesConstants;
 import com.devops.dashboard.dataCollector.dataModels.implementation.Pipeline.PipelineDM;
-import com.devops.dashboard.dataCollector.dataModels.implementation.Sonar.SonarResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -51,7 +46,6 @@ public class newBuildEvents {
 				if (secondUrlSplit.length == 3 && secondUrlSplit[1].equals("getLastBuild")) {
 					jobName = secondUrlSplit[2];
 				}
-
 			}
 
 			if (emitter != null & jobName != null) {

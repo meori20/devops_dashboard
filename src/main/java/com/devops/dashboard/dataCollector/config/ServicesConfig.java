@@ -19,6 +19,5 @@ public class ServicesConfig {
 	@Bean
 	public IMapSonarResponsesToSonarDM mapSonarResponsesToSonarDM() {
 		return new MapSonarResponsesToSonarDM();
-	}
-	
+	}	
 }
