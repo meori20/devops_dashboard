@@ -82,7 +82,7 @@ public class newBuildEvents {
 					if (livePipelineDetailsString != null) {
 						String livePipelineDetailsStringBody = livePipelineDetailsString.getBody();
 						StringBuilder responseBuilder = new StringBuilder();
-						responseBuilder.append("{ \"ProjectName:\":\""+jobName+"\",\"AllBuilds\":");
+						responseBuilder.append("{ \"ProjectName\":\""+jobName+"\",\"AllBuilds\":");
 						responseBuilder.append(livePipelineDetailsStringBody);
 						responseBuilder.append("}");
 						
