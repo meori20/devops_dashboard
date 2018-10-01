@@ -27,6 +27,10 @@ public class MapJobToIProjectDM implements IMapJobToIProjectDM{
 	public IProjectDM map(Job job) throws IOException {
 		
 		IProjectDM projectDM = new ProjectDM();
+		
+		
+		//Optional - Performance issue.
+		/*
 		List<Build> builds = job.details().getAllBuilds();
 		List<IBuildDM> mappedBuilds = new ArrayList();
 		builds.forEach((b) -> {
@@ -38,6 +42,7 @@ public class MapJobToIProjectDM implements IMapJobToIProjectDM{
 		});
 		
 		projectDM.setBuildList(mappedBuilds);
+		*/
 		projectDM.setProjectName(job.getName());
 		projectDM.setSonarQube(sonarService.getSonarQube(job.getName()));
 		
