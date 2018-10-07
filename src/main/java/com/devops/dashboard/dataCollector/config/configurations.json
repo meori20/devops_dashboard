@@ -1,18 +1,1 @@
-{
-	"configuration": {
-		"jenkinsServer": {
-			"jenkinsUrl": "http://ec2-52-36-106-204.us-west-2.compute.amazonaws.com:8080",
-			"userName": "meori20",
-			"microservices": {
-				"microservice": [
-					{
-						"sonarKey": "meori20_dashboardTests",
-						"jiraFilter": null,
-						"name": "DevDashboard"
-					}
-				]
-			},
-			"password": "zqxwce321"
-		}
-	}
-}
+{"configuration":{"jenkinsServer":{"jenkinsUrl":"http://ec2-52-36-106-204.us-west-2.compute.amazonaws.com:8080","userName":"meori20","microservices":{"microservice":[{"sonarKey":"meori20_dashboardTests","jiraFilter":null,"name":"DevDashboard","gitRepoApi":"https://api.github.com/repos/meori20/dashboardTests","domain":"TestDomain"},{"sonarKey":"","jiraFilter":null,"name":"iOS","gitRepoApi":"https://api.github.com/repos/meori20/dashboardTests","domain":"SmartPhones"},{"sonarKey":"","jiraFilter":null,"name":"Android","gitRepoApi":"","domain":"SmartPhones"}]},"password":"zqxwce321"}}}

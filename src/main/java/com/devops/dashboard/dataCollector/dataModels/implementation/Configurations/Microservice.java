@@ -7,6 +7,10 @@ public class Microservice
     private String jiraFilter;
 
     private String name;
+    
+    private String gitRepoApi;
+    
+    private String domain;
 
     public String getSonarKey ()
     {
@@ -43,4 +47,20 @@ public class Microservice
     {
         return "[sonarKey = "+sonarKey+", jiraFilter = "+jiraFilter+", name = "+name+"]";
     }
+
+	public String getGitRepoApi() {
+		return gitRepoApi;
+	}
+
+	public void setGitRepoApi(String gitRepoApi) {
+		this.gitRepoApi = gitRepoApi;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 }

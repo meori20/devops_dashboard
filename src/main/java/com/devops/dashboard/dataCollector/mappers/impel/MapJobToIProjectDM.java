@@ -7,10 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devops.dashboard.dataCollector.dataModels.implementation.ProjectDM;
+import com.devops.dashboard.dataCollector.dataModels.implementation.Git.GitDataDM;
 import com.devops.dashboard.dataCollector.dataModels.interfaces.IBuildDM;
 import com.devops.dashboard.dataCollector.dataModels.interfaces.IProjectDM;
 import com.devops.dashboard.dataCollector.mappers.interfaces.IMapBuildToBuildsDM;
 import com.devops.dashboard.dataCollector.mappers.interfaces.IMapJobToIProjectDM;
+import com.devops.dashboard.dataCollector.services.impel.GitService;
 import com.devops.dashboard.dataCollector.services.interfaces.ISonarService;
 import com.offbytwo.jenkins.model.Build;
 import com.offbytwo.jenkins.model.Job;
@@ -45,6 +47,9 @@ public class MapJobToIProjectDM implements IMapJobToIProjectDM{
 		*/
 		projectDM.setProjectName(job.getName());
 		projectDM.setSonarQube(sonarService.getSonarQube(job.getName()));
+		GitService git = new GitService();
+		GitDataDM gitData = git.getTopGitData(job.getName());
+		projectDM.setGitDataDM(gitData);
 		
 		return projectDM;
 		

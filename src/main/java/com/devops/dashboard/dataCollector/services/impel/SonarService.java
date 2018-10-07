@@ -27,7 +27,7 @@ public class SonarService implements ISonarService {
 	public ISonarQube getSonarQube(String jobName) throws JsonParseException, JsonMappingException, IOException{
 		String sonarKey = getSonarKey(jobName);
 		
-		if(sonarKey != null) {
+		if(sonarKey != null && !sonarKey.isEmpty()) {
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<SonarResponse> SonarResponse = restTemplate.getForEntity("https://sonarcloud.io/api/measures/component?metricKeys=code_smells,coverage&component="+ sonarKey,SonarResponse.class);
 		

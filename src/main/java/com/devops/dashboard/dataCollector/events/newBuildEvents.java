@@ -29,8 +29,8 @@ public class newBuildEvents {
 	@Component
 	public class eventHandler {
 
-		@Async
 		@EventListener
+		@Async("asyncExecutor")
 		public void handleEvent(RequestHandledEvent e) throws IOException {
 
 			String jobName = null;
@@ -85,13 +85,15 @@ public class newBuildEvents {
 						responseBuilder.append("{ \"ProjectName\":\""+jobName+"\",\"AllBuilds\":");
 						responseBuilder.append(livePipelineDetailsStringBody);
 						responseBuilder.append("}");
-						
-						emitter.send(responseBuilder.toString(), MediaType.TEXT_PLAIN);
+						if(emitter != null) {
+							emitter.send(responseBuilder.toString(), MediaType.TEXT_PLAIN);							
+						}
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
-					e.printStackTrace();
+					emitter.complete();
+					break;
 				}
 			}
 
@@ -104,12 +106,16 @@ public class newBuildEvents {
 	public ResponseBodyEmitter newBuildSubscribe(HttpServletResponse response) throws IOException {
 
 		emitter = new SseEmitter(1000 * 60 * 1000L);
+		emitter.onTimeout(() -> timeout(emitter));
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Expose-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 
 		return emitter;
 
+	}
+	public void timeout(SseEmitter emmiter) {
+		emmiter.complete();
 	}
 
 }

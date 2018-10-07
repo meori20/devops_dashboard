@@ -9,7 +9,7 @@ public class JenkinsServer
     private Microservices microservices;
 
     private String password;
-
+    
     public String getJenkinsUrl ()
     {
         return jenkinsUrl;

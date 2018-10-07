@@ -12,9 +12,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.devops.dashboard.dataCollector.mappers.impel.MapSonarResponsesToSonarDM;
 import com.devops.dashboard.dataCollector.mappers.interfaces.IMapSonarResponsesToSonarDM;
+import com.devops.dashboard.dataCollector.services.impel.InitialScreenService;
 import com.devops.dashboard.dataCollector.services.impel.SonarService;
 import com.devops.dashboard.dataCollector.services.impel.sqlLogin.SqlLogin;
 import com.devops.dashboard.dataCollector.services.impel.sqlLogin.UserDAO;
+import com.devops.dashboard.dataCollector.services.interfaces.IInitialScreenService;
 import com.devops.dashboard.dataCollector.services.interfaces.ILoginService;
 import com.devops.dashboard.dataCollector.services.interfaces.ISonarService;
 import com.devops.dashboard.dataCollector.services.interfaces.IUserDAO;
@@ -34,6 +36,11 @@ public class ServicesConfig {
 	@Bean
 	public IMapSonarResponsesToSonarDM mapSonarResponsesToSonarDM() {
 		return new MapSonarResponsesToSonarDM();
+	}
+	
+	@Bean
+	public IInitialScreenService getInitialScreenService() {
+		return new InitialScreenService();
 	}
 	
     @Bean
