@@ -32,6 +32,8 @@ public class MapJenkinsServerToDashboadDM implements IMapJenkinsServerToDashboad
 			}
 		});
 		dashBoardDM.setProjectList(allProj);
+		
+
 		return dashBoardDM;
 	}
 

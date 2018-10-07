@@ -16,29 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devops.dashboard.dataCollector.config.Configurations;
 import com.devops.dashboard.dataCollector.dataModels.interfaces.IDashBoardDM;
 import com.devops.dashboard.dataCollector.mappers.interfaces.IMapJenkinsServerToDashboadDM;
+import com.devops.dashboard.dataCollector.services.impel.GitService;
+import com.devops.dashboard.dataCollector.services.interfaces.IInitialScreenService;
 import com.offbytwo.jenkins.JenkinsServer;
 
 @RestController
 public class getInitialScreen {
 	
 	@Autowired
-	private IMapJenkinsServerToDashboadDM mapJenkinsServerToDashboadDM;
+	IInitialScreenService initialScreenService;
 	
 	@RequestMapping(value = "/getInitialScreen", method = RequestMethod.GET)
 	public @ResponseBody IDashBoardDM getDashboard(HttpServletResponse response) throws IOException {
 		delegatesUtil.enableAccessControlForGetReq(response);
 		
-		JenkinsServer jenkinsServer = null;
-		Configurations conf = Configurations.getConfigurations();
-		try {
-			 jenkinsServer = new JenkinsServer(new URI(conf.getJenkinsURL()),conf.getJenkinsUsername(), conf.getJenkinsPassword());
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		IDashBoardDM dashBoardDM = mapJenkinsServerToDashboadDM.map(jenkinsServer);
-		
-		return dashBoardDM;
+		return initialScreenService.getDashboard();
 	}
 		
 		
