@@ -20,9 +20,9 @@ public class getCreateUser {
 	@RequestMapping(value = "/createUser", params = { "username", "password" }, method = RequestMethod.GET)
 	@ResponseBody
 	public String getCreateUser(@RequestParam("username") String username ,@RequestParam("password")String password, HttpServletResponse response) {
-		
+		delegatesUtil.enableAccessControlForGetReq(response);
 		loginServie.register(username, password);
 		
-		return "Narrow Get a specific Bar with id=" + username;
+		return String.format("{ \"status\": \"ok\", \"username\": \"%s\"}", username);
 	}
 }

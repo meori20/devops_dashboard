@@ -20,11 +20,11 @@ public class getLogin {
 	@RequestMapping(value = "/login", params = { "username", "password" }, method = RequestMethod.GET)
 	@ResponseBody
 	public String getBarBySimplePathWithExplicitRequestParams(@RequestParam("username") String username ,@RequestParam("password")String password, HttpServletResponse response) {
-		
+		delegatesUtil.enableAccessControlForGetReq(response);
 		if(loginServie.login(username, password)) {
-			return "Valid username and password";
+			return "{\"status\": \"ok\"}";
 		}
 		
-		return username + " not valid" ;
+		return "{\"status\": \"error\"}";
 	}
 }
