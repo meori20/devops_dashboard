@@ -16,13 +16,15 @@ public class getCreateUser {
 
 	@Autowired
 	ILoginService loginServie;
-	
+
 	@RequestMapping(value = "/createUser", params = { "username", "password" }, method = RequestMethod.GET)
-	@ResponseBody
-	public String getCreateUser(@RequestParam("username") String username ,@RequestParam("password")String password, HttpServletResponse response) {
+
+	public String getCreateUser(@RequestParam("username") String username, @RequestParam("password") String password,
+			HttpServletResponse response) {
 		delegatesUtil.enableAccessControlForGetReq(response);
 		loginServie.register(username, password);
-		
+
+
 		return String.format("{ \"status\": \"ok\", \"username\": \"%s\"}", username);
 	}
 }
